@@ -1,5 +1,6 @@
 # Expense Tracker - Fullstack
-#Preview
+
+# Preview
 ![Image](https://github.com/user-attachments/assets/aeacd252-2b92-43aa-91fe-09f9bb24649e)
 
 
