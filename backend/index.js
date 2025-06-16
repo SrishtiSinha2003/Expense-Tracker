@@ -74,7 +74,8 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(path.resolve(), "../frontend/dist", "index.html"));
 });
 
-await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+const PORT = process.env.PORT || 4000;
+await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
 await connectDB();
 
-console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
