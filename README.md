@@ -196,8 +196,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 
 For questions or feedback, feel free to reach out:
 
-- Email: [muhammetbakiduman@gmail.com](mailto:muhammetbakiduman@gmail.com)
-- LinkedIn: [Baki Duman](https://www.linkedin.com/in/muhammet-baki-duman-019451195/)
+
 
 ---
 
