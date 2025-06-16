@@ -1,7 +1,8 @@
 # Expense Tracker - Fullstack
 
 # Preview
-![Image](https://github.com/user-attachments/assets/aeacd252-2b92-43aa-91fe-09f9bb24649e)
+
+![Image](https://github.com/user-attachments/assets/44e21c67-9b38-444d-a78e-22762cfe6bd2)
 
 
 ## Table of Contents
