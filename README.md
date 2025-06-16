@@ -1,6 +1,6 @@
 # Expense Tracker - Fullstack
 
-![Banner](https://i.ibb.co/6vF8r79/banner.png)
+
 
 ## Table of Contents
 
