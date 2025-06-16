@@ -192,11 +192,10 @@ Contributions are welcome! To contribute to this project, follow these steps:
 
 This project is licensed under the MIT License. See the `LICENSE` file for more information.
 
-## Contact
 
-For questions or feedback, feel free to reach out:
+## 📬 Contact
 
-
+For questions or feedback, feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/srishti-sinha-06aug082003/).
 
 ---
 
