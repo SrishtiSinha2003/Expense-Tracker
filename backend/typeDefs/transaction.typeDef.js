@@ -15,6 +15,7 @@ const transactionTypeDef = `#graphql
         getTransactions: [Transaction!]
         getTransaction(transactionId: ID!): Transaction
         getStatistics: [CategoryStatistics!]
+        getFinancialInsights: String
     }
 
     type Mutation {

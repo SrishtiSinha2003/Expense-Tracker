@@ -22,15 +22,21 @@ import {
 //   return forward(operation);
 // });
 
-const client = new ApolloClient({
-  // link: concat(authLink, httpLink),
+
+const httpLink = new HttpLink({
   uri:
     import.meta.env.VITE_NODE_ENV === "development"
       ? "http://localhost:4000/graphql"
       : "/graphql",
-  cache: new InMemoryCache(),
-  credentials: "include",
+  credentials: "include", // ✅ FIX HERE
 });
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
+
+export default client;
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

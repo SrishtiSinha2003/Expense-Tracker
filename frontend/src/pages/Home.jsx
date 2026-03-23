@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import Chart from "../components/Chart";
 import TransactionForm from "../components/TransactionForm";
 import Cards from "../components/Cards";
+import AIInsights from "../components/AIInsights";
 import { FaSignOutAlt } from "react-icons/fa";
 import { GET_AUTH_USER, GET_USER } from "../graphql/queries/user.query";
 import { LOGOUT } from "../graphql/mutations/user.mutation";
@@ -47,6 +48,7 @@ const Home = () => {
       <section className="flex flex-wrap justify-center xl:justify-between gap-4 pt-20 pb-10">
         <Cards />
       </section>
+      <AIInsights />
     </div>
   );
 };

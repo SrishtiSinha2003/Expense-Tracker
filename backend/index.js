@@ -15,7 +15,7 @@ import passport from "passport";
 import { buildContext } from "graphql-passport";
 import { configurePassport } from "./passport/passport.config.js";
 
-dotenv.config();
+dotenv.config({ path: path.resolve("./.env") });
 configurePassport();
 
 const app = express();
@@ -68,14 +68,15 @@ app.use(
     context: async ({ req, res }) => buildContext({ req, res }),
   })
 );
-app.use(express.static(path.join(path.resolve(), "../frontend/dist")));
+app.use(express.static(path.join(path.resolve(), "frontend/dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(path.resolve(), "../frontend/dist", "index.html"));
+  res.sendFile(path.join(path.resolve(), "frontend/dist", "index.html"));
 });
 
 const PORT = process.env.PORT || 4000;
-await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
 await connectDB();
+await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
+
 
 console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);

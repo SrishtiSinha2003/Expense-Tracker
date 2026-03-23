@@ -22,7 +22,9 @@
     "express-session": "^1.18.0",
     "graphql": "^16.9.0",
     "graphql-passport": "^0.6.8",
+    "groq-sdk": "^1.1.1",
     "mongoose": "^8.6.3",
+    "openai": "^6.32.0",
     "passport": "^0.7.0"
   },
   "devDependencies": {

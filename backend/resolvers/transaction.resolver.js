@@ -1,5 +1,6 @@
 import Transaction from "../models/transaction.model.js";
 import User from "../models/user.model.js";
+import Groq from "groq-sdk";
 
 const transactionResolver = {
   Query: {
@@ -59,7 +60,78 @@ const transactionResolver = {
         throw new Error(error.message || "An error occurred");
       }
     },
+    getFinancialInsights: async (_, __, context) => {
+      try {
+        const user = await context.getUser();
+        if (!user) {
+          throw new Error("Unauthorized");
+        }
+        const userId = user.id || user._id;
+        const transactions = await Transaction.find({ userId });
+
+        if (transactions.length === 0) {
+          return 'No transactions found. Add some expenses to get insights!';
+        }
+
+        // Aggregate data for AI
+        const summary = transactions.reduce((acc, tx) => {
+          acc[tx.category] = (acc[tx.category] || 0) + tx.amount;
+          return acc;
+        }, {});
+
+        const totalIncome = summary.income || 0;
+        const totalExpense = summary.expense || 0;
+        const totalSaving = summary.saving || 0;
+
+        // Prepare prompt for AI
+        const prompt = `
+You are a smart financial assistant.
+
+Give ONLY 3-4 short insights based on this data.
+
+Rules:
+- Keep each point under 20 words
+- No headings
+- No tables
+- No long explanations
+- Use simple language
+- Use bullet points
+
+Data:
+Income: ${totalIncome}
+Expense: ${totalExpense}
+Savings: ${totalSaving}
+Breakdown: ${JSON.stringify(summary)}
+Transactions: ${transactions.length}
+`;
+        
+
+      const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
+
+const response = await groq.chat.completions.create({
+  model: "groq/compound",
+  messages: [
+    {
+      role: "user",
+      content: prompt,
+    },
+  ],
+});
+
+return response.choices[0].message.content;
+
+        return response.choices[0].message.content.trim();
+      } catch (error) {
+        console.error("🔥 FULL AI ERROR:");
+  console.error(error);
+  console.error(error?.response?.data);
+  return 'Unable to generate insights at this time. Please try again later.';
+      }
+    },
   },
+  
   Mutation: {
     addTransaction: async (_, { input }, context) => {
       try {
