@@ -33,11 +33,6 @@ const Home = () => {
       <section className="flex flex-col items-center gap-2 pt-6">
         <h3 className="text-2xl">Welcome back, {data?.authUser?.username}</h3>
         <div className="flex items-center gap-6">
-          <img
-            className="w-16 h-16 rounded-full"
-            src={data?.authUser?.profilePic}
-            alt="Avatar pic"
-          />
           <FaSignOutAlt className="cursor-pointer" size={30} onClick={logout} />
         </div>
       </section>
