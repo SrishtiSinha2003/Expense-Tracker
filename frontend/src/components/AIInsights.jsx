@@ -1,22 +1,63 @@
-import { useQuery } from '@apollo/client';
-import { GET_FINANCIAL_INSIGHTS } from '../graphql/queries/transaction.query';
+import { useQuery } from "@apollo/client";
+import { GET_FINANCIAL_INSIGHTS } from "../graphql/queries/transaction.query";
+import { FaRobot, FaSync } from "react-icons/fa";
 
 const AIInsights = () => {
-  const { loading, error, data, refetch } = useQuery(GET_FINANCIAL_INSIGHTS);
+  const { loading, error, data, refetch } = useQuery(
+    GET_FINANCIAL_INSIGHTS
+  );
 
-  if (loading) return <p className="text-center text-gray-500">Loading insights...</p>;
-  if (error) return <p className="text-center text-red-500">Error: {error.message}</p>;
+  if (loading)
+    return (
+      <div className="bg-slate-800 p-6 rounded-2xl animate-pulse h-40 mt-6 mb-10" />
+    );
+
+  if (error)
+    return (
+      <div className="bg-red-500/10 text-red-400 p-4 rounded-lg mt-6 mb-10">
+        Error: {error.message}
+      </div>
+    );
+
+  // 🔥 Split insights into clean UI blocks
+  const insights =
+    data?.getFinancialInsights?.split("\n").filter(Boolean) || [];
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md mt-6">
-      <h2 className="text-xl font-bold mb-4 text-gray-800">AI Financial Insights</h2>
-      <p className="text-gray-700 whitespace-pre-line leading-relaxed">{data.getFinancialInsights}</p>
-      <button
-        onClick={() => refetch()}
-        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-      >
-        Refresh Insights
-      </button>
+    <div className="bg-slate-800 p-6 rounded-2xl shadow-lg mt-6 mb-10 max-w-2xl mx-auto">
+      
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+          <FaRobot className="text-indigo-400" />
+          AI Financial Insights
+        </h2>
+
+        <button
+          onClick={() => refetch()}
+          className="flex items-center gap-2 text-sm bg-indigo-500/20 text-indigo-400 px-3 py-1 rounded-lg hover:bg-indigo-500/30 transition"
+        >
+          <FaSync />
+          Refresh
+        </button>
+      </div>
+
+      {/* Insights */}
+      <div className="space-y-3">
+        {insights.length > 0 ? (
+          insights.map((item, i) => (
+            <div
+              key={i}
+              className="bg-slate-700 p-3 rounded-lg text-gray-200 hover:bg-slate-600 transition flex gap-2"
+            >
+              <span>💡</span>
+              <span>{item}</span>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-400">No insights available</p>
+        )}
+      </div>
     </div>
   );
 };

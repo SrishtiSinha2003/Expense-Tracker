@@ -26,47 +26,95 @@ const Card = ({ transaction }) => {
     }
   };
 
-  const background = {
-    income: "from-green-700 to-green-400",
-    expense: "from-red-700 to-red-400",
-    saving: "from-blue-700 to-blue-400",
+  const styles = {
+    income: {
+      bg: "from-green-500/20 to-green-700/40",
+      text: "text-green-400",
+      border: "border-green-500/30",
+    },
+    expense: {
+      bg: "from-red-500/20 to-red-700/40",
+      text: "text-red-400",
+      border: "border-red-500/30",
+    },
+    saving: {
+      bg: "from-blue-500/20 to-blue-700/40",
+      text: "text-blue-400",
+      border: "border-blue-500/30",
+    },
   };
+
+  const current = styles[transaction.category];
 
   return (
     <div
-      className={`rounded-lg flex flex-col p-4 gap-2 w-72 md:w-96 mx-4 md:mx-0 text-white text-lg bg-gradient-to-br ${
-        background[transaction.category]
-      }`}
+      className={`rounded-2xl p-5 w-80 md:w-96 
+      bg-gradient-to-br ${current.bg} 
+      border ${current.border} 
+      backdrop-blur-md shadow-lg 
+      hover:scale-[1.02] hover:shadow-xl 
+      transition-all duration-300`}
     >
-      <div className="flex items-center justify-between gap-4">
-        <h3 className="text-2xl capitalize">{transaction.category}</h3>
-        <div className="flex items-center gap-4">
-          <button onClick={handleDelete}>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3">
+        <h3 className={`text-xl font-semibold capitalize ${current.text}`}>
+          {transaction.category}
+        </h3>
+
+        <div className="flex items-center gap-3 text-gray-300">
+          <button
+            onClick={handleDelete}
+            className="hover:text-red-400 transition"
+          >
             <FaTrash />
           </button>
-          <Link to={`/transaction/${transaction._id}`}>
+
+          <Link
+            to={`/transaction/${transaction._id}`}
+            className="hover:text-indigo-400 transition"
+          >
             <FaEdit />
           </Link>
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <FaIdCard />
-        <p className="truncate">Description: {transaction.description}</p>
-      </div>
-      <div className="flex items-center gap-2 capitalize">
-        <FaCartPlus />
-        <p>Payment Type: {transaction.type}</p>
-      </div>
-      <div className="flex items-center gap-2">
-        <FaCashRegister />
-        <p className="truncate">Amount: ${transaction.amount}</p>
-      </div>
-      <div className="flex items-center gap-2">
-        <FaLocationArrow />
-        <p className="truncate">
-          Location:{" "}
-          {transaction.location ? transaction.location : "No location info"}
-        </p>
+
+      {/* Divider */}
+      <div className="border-t border-gray-600 mb-3"></div>
+
+      {/* Content */}
+      <div className="space-y-2 text-sm text-gray-200">
+        <div className="flex items-center gap-2">
+          <FaIdCard className="opacity-70" />
+          <p className="truncate">
+            <span className="text-gray-400">Desc:</span>{" "}
+            {transaction.description}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2 capitalize">
+          <FaCartPlus className="opacity-70" />
+          <p>
+            <span className="text-gray-400">Type:</span> {transaction.type}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <FaCashRegister className="opacity-70" />
+          <p>
+            <span className="text-gray-400">Amount:</span>{" "}
+            <span className={`font-semibold ${current.text}`}>
+              ₹{transaction.amount}
+            </span>
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <FaLocationArrow className="opacity-70" />
+          <p className="truncate">
+            <span className="text-gray-400">Location:</span>{" "}
+            {transaction.location || "N/A"}
+          </p>
+        </div>
       </div>
     </div>
   );
